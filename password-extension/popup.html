@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>STRONGSEC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SETUP CONTAINER -->
+    <div id="setupContainer" class="auth-container" style="display: none;">
+        <div class="auth-logo">
+            <img src="icons/icon32.png" alt="STRONGSEC Logo">
+            <span>STRONGSEC</span>
+        </div>
+        <h2>Kasayı Kur</h2>
+        <p>Kasanızı korumak için bir ana parola oluşturun (en az 6 karakter).</p>
+        <div class="auth-form">
+            <div class="input-group">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <input type="password" id="setupPassword" placeholder="Ana Parola">
+            </div>
+            <div class="input-group">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <input type="password" id="setupConfirmPassword" placeholder="Parolayı Onayla">
+            </div>
+            <button id="setupBtn" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                Kasayı Oluştur
+            </button>
+            <div id="setupError" class="error-text" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- UNLOCK CONTAINER -->
+    <div id="unlockContainer" class="auth-container" style="display: none;">
+        <div class="auth-logo">
+            <img src="icons/icon32.png" alt="STRONGSEC Logo">
+            <span>STRONGSEC</span>
+        </div>
+        <h2>Kasanı Aç</h2>
+        <p>Devam etmek için ana parolayı girin.</p>
+        <div class="auth-form">
+            <div class="input-group">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <input type="password" id="unlockPassword" placeholder="Ana Parola">
+            </div>
+            <button id="unlockBtn" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                    <line x1="6" y1="1" x2="6" y2="4" />
+                    <line x1="10" y1="1" x2="10" y2="4" />
+                    <line x1="14" y1="1" x2="14" y2="4" />
+                </svg>
+                Kilidi Aç
+            </button>
+            <button id="resetVaultBtn" class="btn btn-danger btn-ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10" />
+                    <path d="M3.51 15a9 9 0 1 0 .49-4.87" />
+                </svg>
+                Kasayı Sıfırla
+            </button>
+            <div id="unlockError" class="error-text" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div id="mainContainer" class="container" style="display: none;">
+
+        <!-- Header -->
+        <div class="main-header">
+            <div class="brand">
+                <img src="icons/icon32.png" alt="STRONGSEC Logo">
+                <span class="brand-name">STRONGSEC</span>
+            </div>
+            <button id="lockVaultBtn" class="btn-icon btn-icon-danger" title="Kasayı Kilitle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Parola Oluşturucu — varsayılan açık -->
+        <div class="accordion-section active">
+            <div class="accordion-header">
+                <div class="accordion-header-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                    </svg>
+                    Parola Oluşturucu
+                </div>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </div>
+            <div class="accordion-body">
+                <div class="card-body">
+                    <div class="control-group">
+                        <label for="lengthSelect">Parola Uzunluğu</label>
+                        <select id="lengthSelect">
+                            <option value="12">12 karakter</option>
+                            <option value="16" selected>16 karakter</option>
+                            <option value="20">20 karakter</option>
+                            <option value="24">24 karakter</option>
+                        </select>
+                    </div>
+                    <div class="toggle-container">
+                        <label>
+                            <input type="checkbox" id="autoModeToggle">
+                            <span>Otomatik Doldurma</span>
+                        </label>
+                    </div>
+                    <button id="generateBtn" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1 4 1 10 7 10" />
+                            <path d="M3.51 15a9 9 0 1 0 .49-4.87" />
+                        </svg>
+                        Parola Üret
+                    </button>
+                    <div class="output">
+                        <div class="output-header">
+                            <span id="passwordOutput">Henüz parola üretilmedi</span>
+                            <button id="toggleVisibleBtn" class="btn-icon" title="Göster/Gizle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="strength-indicator">
+                            Parola Gücü: <span id="strengthText" class="strength-badge">Henüz üretilmedi</span>
+                        </div>
+                    </div>
+                    <div class="btn-row">
+                        <button id="copyBtn" class="btn btn-secondary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                            Kopyala
+                        </button>
+                        <button id="forceFillBtn" class="btn btn-accent">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="5 12 12 5 19 12" />
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                            </svg>
+                            Formlara Doldur
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bu Site İçin Kaydet -->
+        <div class="accordion-section">
+            <div class="accordion-header">
+                <div class="accordion-header-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                        <polyline points="17 21 17 13 7 13 7 21" />
+                        <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    Bu Site İçin Kaydet
+                </div>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </div>
+            <div class="accordion-body">
+                <div class="card-body">
+                    <div class="save-section">
+                        <label for="emailInput">E-posta / Kullanıcı Adı</label>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <input type="text" id="emailInput" placeholder="ornek@mail.com">
+                        </div>
+                        <button id="saveBtn" class="btn btn-accent">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Kaydet
+                        </button>
+                        <div id="saveFeedback" class="feedback-text" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kayıtlı Parolalar -->
+        <div class="accordion-section">
+            <div class="accordion-header">
+                <div class="accordion-header-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    Kayıtlı Parolalar
+                </div>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </div>
+            <div class="accordion-body">
+                <div class="card-body">
+                    <button id="scanAllBtn" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        Tüm Şifreleri Tara
+                    </button>
+                    <div id="scanResultsContainer"
+                        style="display:none; margin-top:12px; background:#f8fafc; padding:10px 12px; border-radius:8px; border:1px solid #e2e8f0; font-size:13px;">
+                        <div id="scanLoadingText" style="color:#64748b; font-style:italic; display:none;">Taranıyor...
+                            Lütfen bekleyin.</div>
+                        <div id="scanSummary" style="display:none; font-weight:600; margin-bottom:8px; color:#1e293b;">
+                        </div>
+                        <div id="scanList" style="display:none; max-height:150px; overflow-y:auto;"></div>
+                    </div>
+                    <div id="savedPasswordsList" class="saved-list"></div>
+                    <div id="emptySavedMessage" class="empty-message">Henüz kayıtlı parola yok.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ana Parolayı Değiştir -->
+        <div class="accordion-section">
+            <div class="accordion-header">
+                <div class="accordion-header-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                        <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+                    </svg>
+                    Ana Parolayı Değiştir
+                </div>
+                <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </div>
+            <div class="accordion-body">
+                <div class="card-body">
+                    <div class="save-section">
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <input type="password" id="currentMasterPw" placeholder="Mevcut Ana Parola">
+                        </div>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <input type="password" id="newMasterPw" placeholder="Yeni Ana Parola">
+                        </div>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <input type="password" id="confirmNewMasterPw" placeholder="Yeni Parolayı Onayla">
+                        </div>
+                        <button id="changeMasterPwBtn" class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Parolayı Güncelle
+                        </button>
+                        <div id="changeMasterPwMsg" class="feedback-text"
+                            style="display:none; text-align:left; margin-top:10px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="breach.js"></script>
+    <script src="popup.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRONGSEC - Secure Your Passwords Effortlessly</title>
+    <meta name="description"
+        content="STRONGSEC is a privacy-focused Chrome extension for secure password management. Local-first security with AES-GCM encryption.">
+    <!-- Google Yazı Tipleri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Stilleri -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Site İkonu (Favicon) -->
+    <link rel="icon" type="image/png" href="icons/icon128%20(1).png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="brand">
+                <img src="icons/icon128%20(1).png" alt="STRONGSEC Logo" class="brand-icon">
+                <span class="brand-name">STRONGSEC</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#security">Security</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#cta" class="primary-btn">Add to Chrome</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="interface-note-banner">
+        <div class="container">
+            <p>ℹ️ Extension interface is currently available in Turkish.</p>
+        </div>
+    </div>
+
+    <!-- 1. KAHRAMAN BÖLÜMÜ (HERO) -->
+    <header class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">Privacy-Focused Architecture</div>
+                <h1 class="hero-title">Secure Your Passwords <br><span class="text-gradient">Effortlessly</span></h1>
+                <p class="hero-subtitle">
+                    Generate strong passwords, save them in an encrypted local vault, autofill login forms instantly,
+                    and check exposed credentials with privacy-preserving breach detection.
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#cta" class="primary-btn large-btn">Add to Chrome</a>
+                    <a href="#features" class="secondary-btn large-btn">Explore Features</a>
+                </div>
+                <p class="cta-note">Chrome Web Store approval pending.</p>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-screenshot-wrapper">
+                    <div class="screenshot-label">Real extension preview</div>
+                    <img src="images/generator.png" alt="STRONGSEC Password Generator Preview" class="hero-screenshot">
+                </div>
+                <!-- Dekoratif öğeler -->
+                <div class="glow-orb orb-1"></div>
+                <div class="glow-orb orb-2"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. GÜVEN ŞERİDİ -->
+    <section class="trust-strip">
+        <div class="container trust-container">
+            <div class="trust-item">
+                <div class="trust-icon">🔒</div> <span>Local-First Security</span>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <div class="trust-icon">🛡️</div> <span>No Plaintext Storage</span>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <div class="trust-icon">🚨</div> <span>Breach Detection</span>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <div class="trust-icon">🔑</div> <span>Master Password Protected</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ÖZELLİKLER BÖLÜMÜ -->
+    <section id="features" class="features-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Tools for Your Security</h2>
+                <p>Everything you need to manage your digital life with confidence, built directly into your browser.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">⚡</div>
+                    </div>
+                    <h3>Strong Password Generator</h3>
+                    <p>Create robust, unique passwords instantly. Never rely on easily guessable or reused credentials
+                        again.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">✨</div>
+                    </div>
+                    <h3>Smart Autofill</h3>
+                    <p>Log in with a single click. STRONGSEC automatically detects login forms and fills them securely.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🗄️</div>
+                    </div>
+                    <h3>Secure Vault</h3>
+                    <p>Your encrypted digital safe. Access all your saved credentials neatly organized in one secure
+                        place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">💾</div>
+                    </div>
+                    <h3>Save After Signup</h3>
+                    <p>Automatically prompts to save your new credentials right after you successfully create a new
+                        account.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">👥</div>
+                    </div>
+                    <h3>Multi-Account Support</h3>
+                    <p>Manage multiple logins for the same website seamlessly. Choose the right account effortlessly
+                        when logging in.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🔍</div>
+                    </div>
+                    <h3>Breach Detection</h3>
+                    <p>Proactively checks your accounts against known data breaches using safe, privacy-preserving
+                        checks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3.5. ÜRÜN ÖNİZLEME BÖLÜMÜ (SHOWCASE) -->
+    <section id="showcase" class="showcase-section section-padding">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <h2>See STRONGSEC in Action</h2>
+                <p>A closer look at how STRONGSEC helps you generate, save, protect, and manage passwords inside your
+                    browser.</p>
+            </div>
+            <div class="showcase-grid">
+                <div class="showcase-card">
+                    <div class="screenshot-container">
+                        <img src="images/unlock.png" alt="Master Password Protection">
+                    </div>
+                    <div class="showcase-content">
+                        <h3>Master Password Protection</h3>
+                        <p>Unlock your local vault securely with your master password.</p>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="screenshot-container">
+                        <img src="images/accounts.png" alt="Multi-Account Access">
+                    </div>
+                    <div class="showcase-content">
+                        <h3>Multi-Account Access</h3>
+                        <p>Choose between saved accounts for the same website with ease.</p>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="screenshot-container">
+                        <img src="images/save.png" alt="Save After Signup">
+                    </div>
+                    <div class="showcase-content">
+                        <h3>Save After Signup</h3>
+                        <p>Store new credentials right after creating an account.</p>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="screenshot-container">
+                        <img src="images/password-health.png" alt="Password Health Monitoring">
+                    </div>
+                    <div class="showcase-content">
+                        <h3>Password Health Monitoring</h3>
+                        <p>Review weak, reused, or exposed credentials in one place.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. GÜVENLİK BÖLÜMÜ -->
+    <section id="security" class="security-section section-padding">
+        <div class="container security-container">
+            <div class="security-image">
+                <div class="security-shield-ui">
+                    <div class="shield-ring rotate-slow"></div>
+                    <div class="shield-ring-2 rotate-fast"></div>
+                    <div class="shield-core">
+                        <span>AES-GCM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="security-content">
+                <h2>Strong Local Encryption, Designed for Privacy</h2>
+                <p class="section-lead">Your sensitive data should remain entirely in your hands. We built an
+                    architecture focused on true local execution and strict privacy.</p>
+
+                <ul class="security-list">
+                    <li>
+                        <div class="sec-list-icon">✓</div>
+                        <div>
+                            <strong>AES-GCM Local Encryption</strong>
+                            <p>State-of-the-art encryption algorithms ensure your vault is impenetrable.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sec-list-icon">✓</div>
+                        <div>
+                            <strong>PBKDF2 Key Derivation</strong>
+                            <p>Your master password is cryptographically stretched to defend against brute-force
+                                attacks.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sec-list-icon">✓</div>
+                        <div>
+                            <strong>Local-Only Storage</strong>
+                            <p>Your encrypted vault lives solely on your hard drive. No cloud sync, no central servers
+                                storing passwords.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sec-list-icon">✓</div>
+                        <div>
+                            <strong>Privacy-Preserving Breach Checks</strong>
+                            <p>We use an advanced partial hash sharing approach to alert you of compromised info without
+                                ever revealing your passwords to anyone.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sec-list-icon">✓</div>
+                        <div>
+                            <strong>Master Password Protected</strong>
+                            <p>One key to rule them all. Only your unique master password can unlock your local,
+                                auto-locking vault sessions.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. NASIL ÇALIŞIR -->
+    <section id="how-it-works" class="how-it-works-section section-padding">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <h2>How STRONGSEC Works</h2>
+                <p>Four simple steps to absolute digital security.</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">✍️</div>
+                    <h3>Generate</h3>
+                    <p>Generate a strong, complex password or enter an existing one during signup.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🔒</div>
+                    <h3>Secure</h3>
+                    <p>STRONGSEC encrypts and saves it locally in your protected browser vault.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🎯</div>
+                    <h3>Autofill</h3>
+                    <p>Return to the site and have your login instantly and securely autofilled.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">🛡️</div>
+                    <h3>Monitor</h3>
+                    <p>Sit back while we check if your credentials appear in known public data breaches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ÖNCE GİZLİLİK BÖLÜMÜ -->
+    <section class="privacy-section section-padding">
+        <div class="container privacy-container">
+            <div class="privacy-box">
+                <div class="privacy-box-content">
+                    <h2>Designed for Privacy</h2>
+                    <p>True security starts with absolute privacy. Our local-first architecture guarantees that your
+                        sensitive data never leaves your device.</p>
+                </div>
+                <div class="privacy-badges">
+                    <div class="privacy-badge">
+                        <span class="badge-icon">✅</span> Data stays on device
+                    </div>
+                    <div class="privacy-badge">
+                        <span class="badge-icon">🚫</span> No external password storage
+                    </div>
+                    <div class="privacy-badge">
+                        <span class="badge-icon">🚫</span> No plaintext storage
+                    </div>
+                    <div class="privacy-badge">
+                        <span class="badge-icon">🏗️</span> Privacy-focused architecture
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. SSS (Sıkça Sorulan Sorular) -->
+    <section id="faq" class="faq-section section-padding">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">Where are my passwords stored? <span class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Your passwords are encrypted and stored entirely locally within your browser's dedicated
+                            storage. They never leave your device.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Does STRONGSEC upload my passwords to a server? <span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            No. We do not have any cloud syncing or central servers for password storage. We physically
+                            cannot access your vault.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How does breach detection work? <span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            We use a privacy-preserving k-anonymity approach. Your password is hashed locally, and only
+                            the first few characters of that hash are sent to a secure breach database. The database
+                            returns thousands of known breaches matching those characters, and STRONGSEC mathematically
+                            compares them entirely locally on your device. This guarantees your password is never
+                            exposed.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Why use a master password? <span class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            The master password acts as the unique cryptographic key that locks and unlocks your entire
+                            vault. Without it, your stored encrypted data is functionally unreadable noise.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Can I use multiple accounts on the same site? <span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes, STRONGSEC fully supports multi-account management. If you have several logins for one
+                            website, a safe dropdown menu lets you choose which account to autofill.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. EYLEM ÇAĞRISI (CTA) BÖLÜMÜ -->
+    <section id="cta" class="cta-section section-padding">
+        <div class="container cta-container">
+            <h2 class="cta-title">Start protecting your accounts today</h2>
+            <p class="cta-subtitle">Upgrade your digital security with the extension designed for privacy.</p>
+            <div class="cta-actions">
+                <a href="#install" class="primary-btn huge-btn">Add to Chrome</a>
+            </div>
+            <p class="cta-note bottom-cta-note">Chrome Web Store approval pending.</p>
+        </div>
+        <!-- Arka plan vurguları -->
+        <div class="cta-glow glow-1"></div>
+        <div class="cta-glow glow-2"></div>
+    </section>
+
+    <!-- 10. ALT BİLGİ (FOOTER) -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="brand">
+                    <img src="icons/icon128%20(1).png" alt="STRONGSEC Logo" class="brand-icon">
+                    <span class="brand-name">STRONGSEC</span>
+                </div>
+                <p class="footer-tagline">Local-first security for modern browsing.</p>
+                <div class="language-note">
+                    <p>ℹ️ Extension interface is currently available in Turkish.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-column">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#security">Security</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="link-column">
+                    <h4>Legal</h4>
+                    <a href="https://www.termsfeed.com/live/47d94b68-fc3a-482f-9794-72f775768a79" target="_blank"
+                        rel="noopener noreferrer">Privacy Policy</a>
+                </div>
+                <div class="link-column">
+                    <h4>Contact</h4>
+                    <a href="mailto:emir05han123@gmail.com">emir05han123@gmail.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; <span id="year">2026</span> STRONGSEC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
