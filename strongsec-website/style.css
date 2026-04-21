@@ -6,39 +6,45 @@
 /* --- Değişkenler ve Tema --- */
 :root {
     /* Renk Paleti */
-    --bg-main: #0b0f19;
-    --bg-secondary: #131a29;
-    --bg-tertiary: #1c2438;
+    --bg-main: #111827;
+    /* Gray 900 */
+    --bg-secondary: #1f2937;
+    /* Gray 800 */
+    --bg-tertiary: #374151;
+    /* Gray 700 */
 
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --text-primary: #f9fafb;
+    /* Gray 50 */
+    --text-secondary: #d1d5db;
+    /* Gray 300 */
+    --text-muted: #9ca3af;
+    /* Gray 400 */
 
-    --accent-primary: #6366f1;
+    --accent-primary: #4f46e5;
     /* İndigo */
-    --accent-primary-hover: #4f46e5;
-    --accent-secondary: #8b5cf6;
+    --accent-primary-hover: #4338ca;
+    --accent-secondary: #6366f1;
     /* Mor */
     --accent-success: #10b981;
     --accent-warning: #f59e0b;
     --accent-danger: #ef4444;
 
     /* Gradyanlar (Geçişler) */
-    --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    --gradient-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
+    --gradient-primary: var(--accent-primary);
+    --gradient-glow: none;
 
     /* Gölgeler */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-glow: none;
 
     /* Kenarlıklar ve Yarıçaplar */
     --border-color: rgba(255, 255, 255, 0.08);
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 1rem;
-    --radius-xl: 1.5rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
     --radius-full: 9999px;
 
     /* Geçişler */
@@ -141,11 +147,7 @@ h6 {
 }
 
 .text-gradient {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    color: #ffffff;
 }
 
 /* --- Butonlar --- */
@@ -153,38 +155,36 @@ h6 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-primary);
+    background: var(--accent-primary);
     color: white;
     padding: 0.625rem 1.25rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
     font-size: 0.95rem;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    box-shadow: var(--shadow-md);
+    transition: background-color var(--transition-fast);
+    border: 1px solid transparent;
 }
 
 .primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    background: var(--accent-primary-hover);
 }
 
 .secondary-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-tertiary);
     color: var(--text-primary);
     padding: 0.625rem 1.25rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
     font-size: 0.95rem;
     border: 1px solid var(--border-color);
-    transition: background var(--transition-fast), border-color var(--transition-fast);
+    transition: background-color var(--transition-fast);
 }
 
 .secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--bg-secondary);
 }
 
 .large-btn {
@@ -200,8 +200,8 @@ h6 {
 
 /* --- Arayüz Bilgi Şeridi --- */
 .interface-note-banner {
-    background: rgba(99, 102, 241, 0.15);
-    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
     padding: 0.5rem 0;
     text-align: center;
 }
@@ -213,12 +213,11 @@ h6 {
     font-weight: 500;
 }
 
-/* --- Gezinme Çubuğu (Navbar) --- */
 .navbar {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(11, 15, 25, 0.8);
+    background: rgba(17, 24, 39, 0.9);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
     padding: 1rem 0;
@@ -271,14 +270,7 @@ h6 {
 }
 
 .hero::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: 10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
-    z-index: -1;
+    display: none;
 }
 
 .hero-container {
@@ -295,18 +287,18 @@ h6 {
 .badge {
     display: inline-block;
     padding: 0.35rem 0.85rem;
-    background: rgba(99, 102, 241, 0.1);
-    color: #818cf8;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
     border-radius: var(--radius-full);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid var(--border-color);
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
+    font-size: 3.25rem;
+    font-weight: 700;
     letter-spacing: -0.03em;
     margin-bottom: 1.5rem;
 }
@@ -342,81 +334,51 @@ h6 {
 
 .hero-screenshot-wrapper {
     position: relative;
-    border-radius: var(--radius-lg);
-    padding: 0.75rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.15);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
+    background: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    box-shadow: var(--shadow-lg);
     z-index: 2;
-    animation: float 6s ease-in-out infinite;
     max-width: 420px;
     margin: 0 auto;
 }
 
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-15px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
-}
+@keyframes float {}
 
 .hero-screenshot {
     display: block;
     width: 100%;
     border-radius: var(--radius-md);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .screenshot-label {
     position: absolute;
     top: -12px;
     right: 20px;
-    background: var(--gradient-primary);
-    color: white;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-full);
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
     z-index: 3;
 }
 
 .glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-    z-index: 1;
+    display: none;
 }
 
-.orb-1 {
-    width: 300px;
-    height: 300px;
-    background: var(--accent-primary);
-    top: -50px;
-    right: -50px;
-}
+.orb-1 {}
 
-.orb-2 {
-    width: 250px;
-    height: 250px;
-    background: var(--accent-secondary);
-    bottom: -50px;
-    left: -50px;
-}
+.orb-2 {}
 
 /* --- 2. Güven Şeridi --- */
 .trust-strip {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-    background: rgba(19, 26, 41, 0.4);
+    background: var(--bg-secondary);
     padding: 2rem 0;
 }
 
@@ -461,27 +423,25 @@ h6 {
 .feature-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: 2.5rem;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    transition: border-color var(--transition-fast);
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: var(--text-muted);
 }
 
 .feature-icon-wrapper {
     width: 56px;
     height: 56px;
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--bg-tertiary);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid var(--border-color);
 }
 
 .feature-icon {
@@ -516,26 +476,23 @@ h6 {
 .showcase-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-md);
     padding: 2.5rem;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    transition: border-color var(--transition-fast);
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
 .showcase-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: var(--text-muted);
 }
 
 .screenshot-container {
-    background: linear-gradient(to bottom, rgba(28, 36, 56, 0.6), rgba(19, 26, 41, 0.8));
+    background: #e2e8f0;
     padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-md);
+    border: 1px solid #cbd5e1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -543,7 +500,7 @@ h6 {
 
 .screenshot-container img {
     border-radius: var(--radius-md);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: none;
     max-width: 100%;
     max-height: 250px;
     object-fit: contain;
@@ -596,7 +553,7 @@ h6 {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 2px dashed rgba(99, 102, 241, 0.3);
+    border: 2px dashed var(--border-color);
     border-radius: 50%;
 }
 
@@ -604,18 +561,18 @@ h6 {
     position: absolute;
     width: 80%;
     height: 80%;
-    border: 2px solid rgba(139, 92, 246, 0.2);
-    border-top-color: var(--accent-secondary);
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent-primary);
     border-radius: 50%;
 }
 
 .shield-core {
     width: 60%;
     height: 60%;
-    background: var(--bg-tertiary);
+    background: var(--bg-secondary);
     border-radius: 50%;
     border: 1px solid var(--border-color);
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.2);
+    box-shadow: var(--shadow-md);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -625,23 +582,11 @@ h6 {
     color: var(--accent-primary);
 }
 
-.rotate-slow {
-    animation: rotate 20s linear infinite;
-}
+.rotate-slow {}
 
-.rotate-fast {
-    animation: rotate 10s linear infinite reverse;
-}
+.rotate-fast {}
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
+@keyframes rotate {}
 
 .security-content h2 {
     font-size: 2.5rem;
@@ -667,8 +612,9 @@ h6 {
 }
 
 .sec-list-icon {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--accent-success);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -752,9 +698,9 @@ h6 {
 }
 
 .privacy-box {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(30, 27, 75, 0.4) 100%);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: var(--radius-xl);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     padding: 4rem;
     display: flex;
     justify-content: space-between;
@@ -784,8 +730,8 @@ h6 {
 }
 
 .privacy-badge {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
     padding: 1.25rem;
     border-radius: var(--radius-md);
     display: flex;
@@ -873,13 +819,13 @@ h6 {
 }
 
 .cta-title {
-    font-size: 3rem;
-    font-weight: 800;
+    font-size: 2.75rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
 }
 
 .cta-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: var(--text-secondary);
     margin-bottom: 3rem;
     max-width: 600px;
@@ -888,26 +834,12 @@ h6 {
 }
 
 .cta-glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.3;
-    z-index: 1;
+    display: none;
 }
 
-.glow-1 {
-    background: var(--accent-primary);
-    top: -100px;
-    left: 20%;
-}
+.glow-1 {}
 
-.glow-2 {
-    background: var(--accent-secondary);
-    bottom: -100px;
-    right: 20%;
-}
+.glow-2 {}
 
 /* --- 10. Alt Bilgi (Footer) --- */
 .footer {
