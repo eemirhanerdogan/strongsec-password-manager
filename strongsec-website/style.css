@@ -370,10 +370,6 @@ h6 {
     display: none;
 }
 
-.orb-1 {}
-
-.orb-2 {}
-
 /* --- 2. Güven Şeridi --- */
 .trust-strip {
     border-top: 1px solid var(--border-color);
@@ -581,10 +577,6 @@ h6 {
     font-weight: 700;
     color: var(--accent-primary);
 }
-
-.rotate-slow {}
-
-.rotate-fast {}
 
 @keyframes rotate {}
 
@@ -836,10 +828,6 @@ h6 {
 .cta-glow {
     display: none;
 }
-
-.glow-1 {}
-
-.glow-2 {}
 
 /* --- 10. Alt Bilgi (Footer) --- */
 .footer {
