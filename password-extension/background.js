@@ -30,6 +30,23 @@ function clearSessionUnlocked() {
     currentCryptoKey = null;
 }
 
+async function persistRememberedDeviceUnlock(key) {
+    if (!key) return;
+    try {
+        const jwk = await exportKeyToJWK(key);
+        await chrome.storage.local.set({
+            rememberedVaultKeyJwk: jwk,
+            rememberDeviceEnabled: true
+        });
+    } catch (e) {
+        throw new Error("Cihazı hatırlama işlemi başarısız oldu.");
+    }
+}
+
+async function clearRememberedDeviceUnlock() {
+    await chrome.storage.local.remove(['rememberedVaultKeyJwk', 'rememberDeviceEnabled']);
+}
+
 async function getCurrentKey() {
     const session = await chrome.storage.session.get(['vaultUnlocked', 'sessionJwk', 'expiresAt']);
     const now = Date.now();
@@ -48,6 +65,34 @@ async function getCurrentKey() {
         currentCryptoKey = await importKeyFromJWK(session.sessionJwk);
         refreshSessionExpiry();
         return currentCryptoKey;
+    }
+
+    // Attempt to restore from remembered device state
+    const local = await chrome.storage.local.get(['rememberedVaultKeyJwk', 'vaultMeta', 'rememberDeviceEnabled']);
+
+    if (local.rememberDeviceEnabled) {
+        console.log("Remember device enabled");
+    }
+    if (local.rememberedVaultKeyJwk) {
+        console.log("rememberedVaultKeyJwk found");
+    }
+
+    if (local.rememberedVaultKeyJwk && local.vaultMeta && local.vaultMeta.verificationBlob) {
+        try {
+            const restoredKey = await importKeyFromJWK(local.rememberedVaultKeyJwk);
+            const decrypted = await decryptData(restoredKey, local.vaultMeta.verificationBlob);
+            if (decrypted === VERIFICATION_MAGIC_STRING) {
+                console.log("rememberedVaultKeyJwk restore success");
+                currentCryptoKey = restoredKey;
+                await setSessionUnlocked(restoredKey);
+                return restoredKey;
+            }
+        } catch (e) {
+            // Decryption or import failed, key is invalid
+        }
+        // Verification failed or an error occurred, clear invalid state
+        console.log("rememberedVaultKeyJwk restore failed");
+        await clearRememberedDeviceUnlock();
     }
 
     return null;
@@ -89,6 +134,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     }
                 });
 
+                await clearRememberedDeviceUnlock();
                 await setSessionUnlocked(key);
                 sendResponse({ success: true });
             } catch (error) {
@@ -125,6 +171,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 }
 
                 await setSessionUnlocked(key);
+
+                const rememberDeviceRequested =
+                    request.rememberDevice === true ||
+                    (Array.isArray(request.rememberDevice) && request.rememberDevice[0] === true);
+
+                if (rememberDeviceRequested) {
+                    await persistRememberedDeviceUnlock(key);
+                } else {
+                    await clearRememberedDeviceUnlock();
+                }
+
                 sendResponse({ success: true });
             } catch (error) {
                 console.error("Vault unlock failed:", error);
@@ -142,6 +199,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             try {
                 await chrome.storage.local.clear();
                 clearSessionUnlocked();
+                await clearRememberedDeviceUnlock();
                 sendResponse({ success: true });
             } catch (error) {
                 sendResponse({ success: false, error: error.message });
@@ -224,7 +282,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 // Commit all successfully re-encrypted payloads via single atomic update query
                 await chrome.storage.local.set(updatePayload);
 
-                await setSessionUnlocked(newKey);
+                await clearRememberedDeviceUnlock();
+                clearSessionUnlocked(); // Force user to login again
+
                 sendResponse({ success: true });
             } catch (error) {
                 console.error("Change password failed:", error);
@@ -240,14 +300,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.action === 'lockVault') {
         clearSessionUnlocked();
+        clearRememberedDeviceUnlock();
         sendResponse({ success: true });
         return false;
     }
 
     if (request.action === 'isVaultUnlocked') {
         (async () => {
-            const key = await getCurrentKey();
-            sendResponse({ isUnlocked: !!key });
+            try {
+                if (currentCryptoKey) {
+                    sendResponse({ unlocked: true });
+                    return;
+                }
+                const key = await getCurrentKey();
+                sendResponse({ unlocked: !!key });
+            } catch (err) {
+                console.error("Error checking vault unlock state:", err);
+                sendResponse({ unlocked: false });
+            }
         })();
         return true;
     }

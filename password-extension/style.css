@@ -320,6 +320,7 @@ button {
     border-radius: var(--radius);
     font-size: 13px;
     font-weight: 600;
+    white-space: nowrap;
     transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 
@@ -433,13 +434,15 @@ button {
     align-items: center;
     justify-content: center;
     gap: 5px;
-    padding: 5px 10px;
-    height: 30px;
+    padding: 6px 10px;
+    height: 32px;
     font-size: 12px;
     font-weight: 600;
-    border-radius: 7px;
+    border-radius: 8px;
     width: auto;
     flex: 1;
+    min-width: 72px;
+    white-space: nowrap;
     border: 1.5px solid transparent;
     letter-spacing: 0.01em;
     position: relative;
@@ -563,6 +566,38 @@ button {
     color: var(--text-primary);
     font-weight: 600;
     letter-spacing: 0.04em;
+}
+
+#toggleVisibleBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    height: 32px;
+    padding: 0 10px;
+    white-space: nowrap;
+    line-height: 1;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    word-break: normal;
+    overflow-wrap: normal;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+#toggleVisibleBtn:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+    border-color: rgba(79, 70, 229, 0.35);
 }
 
 .strength-indicator {
@@ -759,6 +794,7 @@ button {
 
 .saved-item-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
     margin-top: 8px;
 }

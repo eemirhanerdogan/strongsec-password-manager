@@ -42,6 +42,7 @@ const setupError = document.getElementById("setupError");
 const unlockContainer = document.getElementById("unlockContainer");
 const unlockPassword = document.getElementById("unlockPassword");
 const unlockBtn = document.getElementById("unlockBtn");
+const rememberDevice = document.getElementById("rememberDevice");
 const resetVaultBtn = document.getElementById("resetVaultBtn");
 const unlockError = document.getElementById("unlockError");
 
@@ -61,7 +62,7 @@ function updateDisplay() {
         return;
     }
 
-    toggleVisibleBtn.style.display = "inline-block";
+    toggleVisibleBtn.style.display = "inline-flex";
     toggleVisibleBtn.textContent = isPasswordVisible ? "Gizle" : "Göster";
 
     if (isPasswordVisible) {
@@ -269,10 +270,29 @@ async function renderSavedPasswords(storageData) {
     savedPasswordsList.innerHTML = '';
     let hasSavedPasswords = false;
 
-    const internalKeys = ['autoMode', 'lastPassword', 'lastLength', 'vaultMeta'];
+    const internalKeys = [
+        'autoMode',
+        'lastPassword',
+        'lastLength',
+        'vaultMeta',
+        'rememberedVaultKeyJwk',
+        'rememberDeviceEnabled'
+    ];
 
     for (const [domain, rawData] of Object.entries(storageData)) {
         if (internalKeys.includes(domain)) continue;
+
+        const looksLikeCredentialRecord = (item) => {
+            return item &&
+                typeof item === 'object' &&
+                Object.prototype.hasOwnProperty.call(item, 'password');
+        };
+
+        if (Array.isArray(rawData)) {
+            if (!rawData.some(looksLikeCredentialRecord)) continue;
+        } else {
+            if (!looksLikeCredentialRecord(rawData)) continue;
+        }
 
         let accounts = Array.isArray(rawData) ? rawData : [rawData];
         let domainNeedsMigration = !Array.isArray(rawData);
@@ -288,7 +308,8 @@ async function renderSavedPasswords(storageData) {
 
             if (!res || !res.success) {
                 const checkRes = await new Promise(resolve => chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, resolve));
-                if (!checkRes || !checkRes.isUnlocked) {
+                const vaultUnlocked = checkRes?.unlocked === true || checkRes?.isUnlocked === true;
+                if (!vaultUnlocked) {
                     handleVaultExpired();
                     return;
                 }
@@ -308,7 +329,8 @@ async function renderSavedPasswords(storageData) {
                     domainNeedsMigration = true;
                 } else {
                     const checkRes = await new Promise(resolve => chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, resolve));
-                    if (!checkRes || !checkRes.isUnlocked) {
+                    const vaultUnlocked = checkRes?.unlocked === true || checkRes?.isUnlocked === true;
+                    if (!vaultUnlocked) {
                         handleVaultExpired();
                         return;
                     }
@@ -509,7 +531,8 @@ async function renderSavedPasswords(storageData) {
 
             editBtn.addEventListener('click', () => {
                 chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, (checkRes) => {
-                    if (!checkRes || !checkRes.isUnlocked) {
+                    const vaultUnlocked = checkRes?.unlocked === true || checkRes?.isUnlocked === true;
+                    if (!vaultUnlocked) {
                         handleVaultExpired();
                         return;
                     }
@@ -740,6 +763,7 @@ function checkAndShowAuth() {
         if (result.vaultMeta && result.vaultMeta.isSetup) {
             setupContainer.style.display = "none";
             unlockContainer.style.display = "block";
+            if (rememberDevice) rememberDevice.checked = false;
             unlockPassword.focus();
         } else {
             unlockContainer.style.display = "none";
@@ -752,7 +776,8 @@ function checkAndShowAuth() {
 function initAuth() {
     // Önce SW'a sor: key bellekte var mı? (port sayesinde SW canlı olmalı)
     chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, (res) => {
-        if (res && res.isUnlocked) {
+        const vaultUnlocked = res?.unlocked === true || res?.isUnlocked === true;
+        if (vaultUnlocked) {
             // SW key'e sahip — direkt ana ekran
             setupContainer.style.display = "none";
             unlockContainer.style.display = "none";
@@ -808,8 +833,13 @@ setupBtn.addEventListener("click", () => {
 
 unlockBtn.addEventListener("click", () => {
     const pw = unlockPassword.value;
+    const rememberDeviceChecked = rememberDevice?.checked === true;
 
-    chrome.runtime.sendMessage({ action: 'unlockVault', masterPassword: pw }, (res) => {
+    chrome.runtime.sendMessage({
+        action: 'unlockVault',
+        masterPassword: pw,
+        rememberDevice: rememberDeviceChecked
+    }, (res) => {
         if (res && res.success) {
             unlockContainer.style.display = "none";
             mainContainer.style.display = "block";

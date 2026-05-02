@@ -766,7 +766,8 @@ function showSaveSuggestion(domain, email, password) {
 
     chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, (vRes) => {
         // Vault is locked/suspended. Do strictly not proceed with injection or capture
-        if (!vRes || !vRes.isUnlocked) return;
+        const vaultUnlocked = vRes?.unlocked === true || vRes?.isUnlocked === true;
+        if (!vaultUnlocked) return;
 
         chrome.storage.local.get(domain, (result) => {
             let accounts = [];

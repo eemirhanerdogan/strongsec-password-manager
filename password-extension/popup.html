@@ -61,6 +61,16 @@
                 </svg>
                 <input type="password" id="unlockPassword" placeholder="Ana Parola">
             </div>
+            <div class="checkbox-group"
+                style="margin-top: 10px; margin-bottom: 15px; display: flex; align-items: flex-start; gap: 8px;">
+                <input type="checkbox" id="rememberDevice" style="margin-top: 3px;">
+                <div>
+                    <label for="rememberDevice" style="font-weight: 500; font-size: 14px; cursor: pointer;">Bu cihazda
+                        hatırla</label>
+                    <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Bu seçenek açıkken, kasayı manuel
+                        olarak kilitlemediğiniz sürece bu cihazda ana parola tekrar istenmez.</div>
+                </div>
+            </div>
             <button id="unlockBtn" class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
@@ -141,12 +151,7 @@
                     <div class="output">
                         <div class="output-header">
                             <span id="passwordOutput">Henüz parola üretilmedi</span>
-                            <button id="toggleVisibleBtn" class="btn-icon" title="Göster/Gizle">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
-                            </button>
+                            <button id="toggleVisibleBtn" title="Göster/Gizle" style="display: none;">Göster</button>
                         </div>
                         <div class="strength-indicator">
                             Parola Gücü: <span id="strengthText" class="strength-badge">Henüz üretilmedi</span>
@@ -229,7 +234,7 @@
             </div>
             <div class="accordion-body">
                 <div class="card-body">
-                    <button id="scanAllBtn" class="btn btn-secondary">
+                    <button id="scanAllBtn" class="btn btn-primary" style="margin-bottom: 12px;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
