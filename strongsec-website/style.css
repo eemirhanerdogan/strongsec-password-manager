@@ -1,35 +1,22 @@
-/* =========================================
-   STRONGSEC - Privacy-Focused Password Manager
-   CSS Stylesheet
-   ========================================= */
-
-/* --- Değişkenler ve Tema --- */
+/* Değişkenler ve Tema */
 :root {
     /* Renk Paleti */
     --bg-main: #111827;
-    /* Gray 900 */
     --bg-secondary: #1f2937;
-    /* Gray 800 */
     --bg-tertiary: #374151;
-    /* Gray 700 */
 
     --text-primary: #f9fafb;
-    /* Gray 50 */
     --text-secondary: #d1d5db;
-    /* Gray 300 */
     --text-muted: #9ca3af;
-    /* Gray 400 */
 
     --accent-primary: #4f46e5;
-    /* İndigo */
     --accent-primary-hover: #4338ca;
     --accent-secondary: #6366f1;
-    /* Mor */
     --accent-success: #10b981;
     --accent-warning: #f59e0b;
     --accent-danger: #ef4444;
 
-    /* Gradyanlar (Geçişler) */
+    /* Gradyanlar */
     --gradient-primary: var(--accent-primary);
     --gradient-glow: none;
 
@@ -47,7 +34,7 @@
     --radius-xl: 0.75rem;
     --radius-full: 9999px;
 
-    /* Geçişler */
+    /* Animasyon Geçişleri */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.5s ease;
@@ -56,7 +43,7 @@
     --font-main: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* --- Sıfırlamalar ve Temeller --- */
+/* Sıfırlamalar ve Temeller */
 * {
     margin: 0;
     padding: 0;
@@ -100,7 +87,7 @@ button {
     background: none;
 }
 
-/* --- Düzen Araçları --- */
+/* Düzen Araçları */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -135,7 +122,7 @@ button {
     color: var(--text-secondary);
 }
 
-/* --- Tipografi --- */
+/* Tipografi */
 h1,
 h2,
 h3,
@@ -150,7 +137,7 @@ h6 {
     color: #ffffff;
 }
 
-/* --- Butonlar --- */
+/* Butonlar */
 .primary-btn {
     display: inline-flex;
     align-items: center;
@@ -198,7 +185,7 @@ h6 {
     border-radius: var(--radius-lg);
 }
 
-/* --- Arayüz Bilgi Şeridi --- */
+/* Arayüz Bilgi Şeridi */
 .interface-note-banner {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
@@ -262,7 +249,7 @@ h6 {
     color: var(--text-primary);
 }
 
-/* --- 1. Kahraman Bölümü --- */
+/* Kahraman Bölümü */
 .hero {
     padding: 6rem 0 4rem;
     position: relative;
@@ -324,7 +311,7 @@ h6 {
     margin-top: 1.5rem;
 }
 
-/* --- Kahraman (Hero) Görseli --- */
+/* Kahraman Görseli */
 .hero-visual {
     position: relative;
     display: flex;
@@ -370,7 +357,7 @@ h6 {
     display: none;
 }
 
-/* --- 2. Güven Şeridi --- */
+/* Güvenilirlik Şeridi */
 .trust-strip {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
@@ -405,7 +392,7 @@ h6 {
     background: var(--border-color);
 }
 
-/* --- 3. Özellikler Bölümü --- */
+/* Özellikler */
 .features-section {
     background: var(--bg-main);
 }
@@ -456,7 +443,7 @@ h6 {
     line-height: 1.7;
 }
 
-/* --- 3.5. Ürün Önizleme Bölümü (Showcase) --- */
+/* Ürün Önizleme */
 .showcase-section {
     background: var(--bg-main);
     border-top: 1px solid var(--border-color);
@@ -514,7 +501,7 @@ h6 {
     line-height: 1.6;
 }
 
-/* --- 4. Güvenlik Bölümü (Security) --- */
+/* Güvenlik */
 .security-section {
     background: var(--bg-secondary);
     position: relative;
@@ -629,7 +616,7 @@ h6 {
     font-size: 0.95rem;
 }
 
-/* --- 5. Nasıl Çalışır --- */
+/* Nasıl Çalışır */
 .steps-container {
     display: flex;
     justify-content: space-between;
@@ -684,7 +671,7 @@ h6 {
     min-width: 50px;
 }
 
-/* --- 6. Önce Gizlilik Bölümü --- */
+/* Gizlilik */
 .privacy-section {
     background: var(--bg-main);
 }
@@ -736,7 +723,7 @@ h6 {
     font-size: 1.2rem;
 }
 
-/* --- 8. SSS --- */
+/* Sıkça Sorulan Sorular */
 .faq-section {
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
@@ -795,7 +782,7 @@ h6 {
     line-height: 1.7;
 }
 
-/* --- 9. Eylem Çağrısı (CTA) Bölümü --- */
+/* Eylem Çağrısı */
 .cta-section {
     background: var(--bg-main);
     text-align: center;
@@ -829,7 +816,7 @@ h6 {
     display: none;
 }
 
-/* --- 10. Alt Bilgi (Footer) --- */
+/* Alt Bilgi */
 .footer {
     background: var(--bg-secondary);
     padding: 4rem 0 2rem;
@@ -895,7 +882,7 @@ h6 {
     font-size: 0.9rem;
 }
 
-/* --- Duyarlı Tasarım (Mobil Uyumluluk) --- */
+/* Duyarlı Tasarım */
 @media (max-width: 992px) {
     .hero-container {
         grid-template-columns: 1fr;

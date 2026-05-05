@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. SSS (Sıkça Sorulan Sorular) Akordeon Mantığı
+    // Sıkça sorulan sorular akordeon mantığı
     const faqItems = document.querySelectorAll('.faq-item');
 
     faqItems.forEach(item => {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 otherAnswer.style.maxHeight = null;
             });
 
-            // Eğer başlangıçta aktif değilse aç
+            // Başlangıçta aktif değilse aç
             if (!isActive) {
                 item.classList.add('active');
                 answer.style.maxHeight = answer.scrollHeight + 'px';
@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Alt Bilgide Mevcut Yılı Ayarla
+    // Alt bilgideki mevcut yılı ayarla
     const yearSpan = document.getElementById('year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // 3. Gezinme çubuğu (Navbar) kaydırma efekti
+    // Gezinme çubuğu kaydırma efekti
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 10) {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Yumuşak Bağlantı Kaydırma Yardımcısı (Desteklemeyen tarayıcılar veya özel ofset ihtiyaçları için yedek)
+    // Yumuşak bağlantı kaydırma yardımcısı
     document.querySelectorAll('.nav-links a[href^="#"], .hero-cta-group a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                // Sabit gezinme çubuğu (navbar) için ofset
+                // Sabit gezinme çubuğu ofseti
                 const navbarHeight = 70;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
 
