@@ -1,6 +1,6 @@
-// --- SW KEEPALIVE ---
+// --- SERVICE WORKER CANLI TUTMA ---
 // Popup açık olduğu sürece SW'a port bağlarız;
-// Chrome, bağlı port olan bir SW'ı uyutmaz — key bellekte kalır.
+// Chrome, bağlı portu olan bir Service Worker'ı uyutmaz — anahtar bellekte kalır.
 const _keepAlivePort = chrome.runtime.connect({ name: 'popup-keepalive' });
 
 function generatePassword(length = 16) {
@@ -375,7 +375,7 @@ async function renderSavedPasswords(storageData) {
 
         const arrowSpan = document.createElement('span');
         arrowSpan.className = 'arrow-icon';
-        arrowSpan.innerHTML = '&#9654;'; // ▶
+        arrowSpan.innerHTML = '&#9654;'; // Sağ ok simgesi
 
         domainInfo.appendChild(accountCountSpan);
         domainInfo.appendChild(arrowSpan);
@@ -639,7 +639,7 @@ function refreshSavedPasswords() {
     });
 }
 
-// --- SCAN ALL PASSWORDS ---
+// --- TÜM ŞİFRELERİ TARA ---
 
 const scanAllBtn = document.getElementById("scanAllBtn");
 const scanResultsContainer = document.getElementById("scanResultsContainer");
@@ -740,7 +740,7 @@ if (scanAllBtn) {
     });
 }
 
-// --- AUTHENTICATION / VAULT LOCK ---
+// --- GİRİŞ / KASA KİLİDİ ---
 
 function showAuthError(el, msg) {
     el.textContent = msg;
@@ -774,11 +774,11 @@ function checkAndShowAuth() {
 }
 
 function initAuth() {
-    // Önce SW'a sor: key bellekte var mı? (port sayesinde SW canlı olmalı)
+    // Önce arka plana sor: Anahtar bellekte var mı? (Port sayesinde arka plan canlı kalmalı)
     chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, (res) => {
         const vaultUnlocked = res?.unlocked === true || res?.isUnlocked === true;
         if (vaultUnlocked) {
-            // SW key'e sahip — direkt ana ekran
+            // Arka plan anahtara sahip — doğrudan ana ekrana geç
             setupContainer.style.display = "none";
             unlockContainer.style.display = "none";
             mainContainer.style.display = "block";
@@ -787,11 +787,11 @@ function initAuth() {
             return;
         }
 
-        // SW'da key yok. Session flag'a bak:
+        // Arka planda anahtar yok. Oturum işaretini kontrol et:
         chrome.storage.session.get(['vaultUnlocked'], (sessionData) => {
             if (sessionData.vaultUnlocked) {
-                // Flag true ama key yok = SW öldü, session stale.
-                // Güvenlik: stale flag'ı temizle, auth iste.
+                // İşaret doğru ama anahtar yok = Arka plan kapandı, oturum eski.
+                // Güvenlik: Eski işareti temizle ve yeniden giriş iste.
                 clearSessionUnlocked_popup();
             }
             // Her iki durumda da auth ekranını göster
@@ -800,7 +800,7 @@ function initAuth() {
     });
 }
 
-// Popup tarafından stale session flag temizleme
+// Popup tarafından eski oturum işaretini temizleme
 function clearSessionUnlocked_popup() {
     chrome.storage.session.remove(['vaultUnlocked']);
 }
@@ -942,10 +942,10 @@ setupPassword.addEventListener("keypress", (e) => {
     if (e.key === "Enter") setupConfirmPassword.focus();
 });
 
-// START AUTH CHECK
+// GİRİŞ KONTROLÜNÜ BAŞLAT
 initAuth();
 
-// --- ACCORDION ---
+// --- AKORDİYON MENÜ ---
 (function () {
     const sections = document.querySelectorAll('.accordion-section');
 
@@ -953,7 +953,7 @@ initAuth();
         const body = section.querySelector('.accordion-body');
         section.classList.add('active');
         body.style.maxHeight = body.scrollHeight + 'px';
-        // After animation: remove cap so inner dynamic content (saved list, domain items) grows freely
+        // Animasyon sonrası: İçeriğin (kaydedilmiş liste, alan adı ögeleri vb.) serbestçe büyümesi için sınırları kaldır
         body.addEventListener('transitionend', function onEnd() {
             if (section.classList.contains('active')) {
                 body.style.maxHeight = 'none';
@@ -964,7 +964,7 @@ initAuth();
 
     function closeSection(section) {
         const body = section.querySelector('.accordion-body');
-        // If max-height is 'none', snapshot concrete px first to enable transition
+        // Maksimum yükseklik 'none' ise, geçiş animasyonunun çalışması için önce mevcut piksel değerini al
         if (!body.style.maxHeight || body.style.maxHeight === 'none') {
             body.style.maxHeight = body.scrollHeight + 'px';
             requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -980,25 +980,25 @@ initAuth();
     function initAccordion() {
         sections.forEach(section => {
             const body = section.querySelector('.accordion-body');
-            // Set initial heights
+            // Başlangıç yüksekliklerini ayarla
             body.style.maxHeight = section.classList.contains('active') ? 'none' : '0';
 
             section.querySelector('.accordion-header').addEventListener('click', () => {
                 const isActive = section.classList.contains('active');
-                // Close all other open sections (classic accordion)
+                // Açık olan diğer tüm bölümleri kapat (klasik akordiyon mantığı)
                 sections.forEach(s => {
                     if (s !== section && s.classList.contains('active')) {
                         closeSection(s);
                     }
                 });
-                // Toggle clicked section
+                // Tıklanan bölümü aç veya kapat
                 isActive ? closeSection(section) : openSection(section);
             });
         });
     }
 
-    // Wait for mainContainer to become visible before initializing
-    // (scrollHeight is 0 while parent is display:none)
+    // Başlatmadan önce ana kapsayıcının görünür olmasını bekle
+    // (Üst öge görünmez durumdayken kaydırma yüksekliği 0 olur)
     const observer = new MutationObserver(() => {
         if (mainContainer.style.display === 'block') {
             observer.disconnect();

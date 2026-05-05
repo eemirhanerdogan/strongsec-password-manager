@@ -1,4 +1,4 @@
-// ArrayBuffer <-> Base64 helpers
+// ArrayBuffer ve Base64 arası dönüştürme yardımcı fonksiyonları
 function bufferToBase64(buffer) {
     let binary = '';
     const bytes = new Uint8Array(buffer);
@@ -19,7 +19,7 @@ function base64ToBuffer(base64) {
     return bytes.buffer;
 }
 
-// Security constants
+// Güvenlik sabitleri
 const PBKDF2_ITERATIONS = 250000;
 const HASH_ALGO = 'SHA-256';
 
@@ -74,7 +74,7 @@ async function encryptData(key, text) {
     const encoder = new TextEncoder();
     const data = encoder.encode(text);
 
-    // AES-GCM requires a 12-byte initialization vector
+    // AES-GCM, 12 baytlık bir başlatma vektörü (IV) gerektirir
     const iv = crypto.getRandomValues(new Uint8Array(12));
 
     const ciphertextBuffer = await crypto.subtle.encrypt(

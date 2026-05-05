@@ -4,7 +4,7 @@ importScripts('breach.js');
 chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' });
 
 let currentCryptoKey = null;
-const AUTO_LOCK_TIMEOUT = 5 * 60 * 60 * 1000; // 5 hours
+const AUTO_LOCK_TIMEOUT = 5 * 60 * 60 * 1000; // 5 saat
 
 const VERIFICATION_MAGIC_STRING = "STRONGSEC_VAULT_VALID";
 
@@ -67,7 +67,7 @@ async function getCurrentKey() {
         return currentCryptoKey;
     }
 
-    // Attempt to restore from remembered device state
+    // Cihazı hatırla durumu varsa verileri oradan geri yüklemeyi deniyoruz
     const local = await chrome.storage.local.get(['rememberedVaultKeyJwk', 'vaultMeta', 'rememberDeviceEnabled']);
 
     if (local.rememberDeviceEnabled) {
@@ -88,9 +88,9 @@ async function getCurrentKey() {
                 return restoredKey;
             }
         } catch (e) {
-            // Decryption or import failed, key is invalid
+            // Şifre çözme veya içe aktarma başarısız, anahtar geçersiz
         }
-        // Verification failed or an error occurred, clear invalid state
+        // Doğrulama başarısız veya hata oluştu, geçersiz durumu temizle
         console.log("rememberedVaultKeyJwk restore failed");
         await clearRememberedDeviceUnlock();
     }
@@ -98,7 +98,7 @@ async function getCurrentKey() {
     return null;
 }
 
-// Keep port listener alive specifically to not break popup connection logic
+// Popup bağlantı mantığının bozulmaması için port dinleyicisini açık tutuyoruz
 chrome.runtime.onConnect.addListener((port) => {
     if (port.name !== 'popup-keepalive') return;
     port.onDisconnect.addListener(() => {
@@ -116,7 +116,7 @@ setInterval(checkAutoLock, 60000);
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     // ----------------------------------------------------
-    // VAULT SETUP
+    // KASA KURULUMU
     // ----------------------------------------------------
     if (request.action === 'setupVault') {
         (async () => {
@@ -146,7 +146,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     // ----------------------------------------------------
-    // VAULT UNLOCK
+    // KASA KİLİDİNİ AÇMA
     // ----------------------------------------------------
     if (request.action === 'unlockVault') {
         (async () => {
@@ -192,7 +192,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     // ----------------------------------------------------
-    // VAULT RESET
+    // KASAYI SIFIRLAMA
     // ----------------------------------------------------
     if (request.action === 'resetVault') {
         (async () => {
@@ -209,7 +209,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     // ----------------------------------------------------
-    // CHANGE MASTER PASSWORD
+    // ANA ŞİFREYİ DEĞİŞTİRME
     // ----------------------------------------------------
     if (request.action === 'changeMasterPassword') {
         (async () => {
@@ -225,7 +225,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     throw new Error("Vault not set up properly.");
                 }
 
-                // Validate current password locally
+                // Mevcut şifreyi yerel olarak doğrula
                 const validationKey = await deriveKey(request.currentPw, meta.salt);
                 try {
                     const decryptedVal = await decryptData(validationKey, meta.verificationBlob);
@@ -236,7 +236,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     throw new Error("Mevcut parola yanlış.");
                 }
 
-                // Setup new key and new metadata
+                // Yeni anahtarı ve meta verileri ayarla
                 const newSalt = await generateSalt();
                 const newKey = await deriveKey(request.newPw, newSalt);
                 const newVerificationBlob = await encryptData(newKey, VERIFICATION_MAGIC_STRING);
@@ -251,7 +251,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
                 const internalKeys = ['autoMode', 'lastPassword', 'lastLength', 'vaultMeta'];
 
-                // Loop over entire storage and re-encrypt seamlessly
+                // Tüm verileri dönüp yeniden şifreliyoruz
                 for (const [domain, rawData] of Object.entries(result)) {
                     if (internalKeys.includes(domain)) continue;
 
@@ -265,7 +265,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                         if (typeof acc.password === 'string') {
                             plainPass = acc.password;
                         } else {
-                            // Must decrypt using current locked key in memory BEFORE it vanishes
+                            // Anahtar hafızadan silinmeden ÖNCE mevcut anahtarla şifreyi çözmeliyiz
                             plainPass = await decryptData(activeKey, acc.password);
                         }
 
@@ -279,11 +279,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     updatePayload[domain] = updatedAccounts;
                 }
 
-                // Commit all successfully re-encrypted payloads via single atomic update query
+                // Başarıyla şifrelenen verileri tek bir seferde kaydediyoruz
                 await chrome.storage.local.set(updatePayload);
 
                 await clearRememberedDeviceUnlock();
-                clearSessionUnlocked(); // Force user to login again
+                clearSessionUnlocked(); // Kullanıcıyı yeniden giriş yapmaya zorla
 
                 sendResponse({ success: true });
             } catch (error) {
@@ -295,7 +295,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     // ----------------------------------------------------
-    // GENERAL ACTIONS
+    // GENEL İŞLEMLER
     // ----------------------------------------------------
 
     if (request.action === 'lockVault') {

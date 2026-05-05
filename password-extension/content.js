@@ -196,7 +196,7 @@ document.addEventListener('click', handlePasswordInputInteraction);
 
 
 // ==============================================================================
-// 3. Phase 2 Step 3: Autofill Suggestion Logic for Saved Passwords
+// 3. Kayıtlı Şifreler İçin Otomatik Doldurma Önerisi Mantığı
 // ==============================================================================
 
 function getCleanHostname(url) {
@@ -642,7 +642,7 @@ document.addEventListener('focusin', (e) => {
 }, true);
 
 // ==============================================================================
-// 4. Phase 2 Step 4 & 6: Robust Automatic Save Suggestion After Form Submission
+// 4. Form Gönderiminden Sonra Otomatik Şifre Kaydetme Önerisi
 // ==============================================================================
 
 let saveSuggestionInjected = false;
@@ -765,7 +765,7 @@ function showSaveSuggestion(domain, email, password) {
     if (!password || password.length === 0) return; // Şifre yoksa kesinlikle gösterme
 
     chrome.runtime.sendMessage({ action: 'isVaultUnlocked' }, (vRes) => {
-        // Vault is locked/suspended. Do strictly not proceed with injection or capture
+        // Kasa kilitli veya askıya alınmış. Kesinlikle enjeksiyon veya veri yakalama işlemi yapma
         const vaultUnlocked = vRes?.unlocked === true || vRes?.isUnlocked === true;
         if (!vaultUnlocked) return;
 
@@ -774,7 +774,7 @@ function showSaveSuggestion(domain, email, password) {
             if (result && result[domain]) {
                 accounts = Array.isArray(result[domain]) ? result[domain] : [result[domain]];
                 if (email && accounts.some(acc => acc.email === email)) {
-                    return; // Avoid duplicate prompt for this exact email
+                    return; // Aynı e-posta adresi için tekrar tekrar uyarı göstermekten kaçın
                 }
             }
 
@@ -899,7 +899,7 @@ function showSaveSuggestion(domain, email, password) {
                     return;
                 }
 
-                // NO PLAINTEXT FALLBACK: Strict abort return if encryption fails
+                // DÜZ METİN YEDEĞİ YOK: Şifreleme başarısız olursa işlemi kesinlikle iptal et
                 chrome.runtime.sendMessage({ action: 'encrypt', text: finalPassword }, (resEnc) => {
                     if (!resEnc || !resEnc.success) {
                         alert("STRONGSEC: Lütfen önce vault kilidini açın.");
@@ -917,7 +917,7 @@ function showSaveSuggestion(domain, email, password) {
                             container.remove();
                             saveSuggestionDismissed = true;
                             sessionCredentials.password = '';
-                            lastTypedPassword = ''; // Reset state
+                            lastTypedPassword = ''; // Durumu sıfırla
                         });
                     });
                 });
@@ -968,13 +968,13 @@ function attemptToTriggerSaveSuggestion(targetElement) {
         lastAuthForm = authForm;
         lastAuthTriggerTime = Date.now();
 
-        // Delay slightly so that page values settle if auto-populated on submit
+        // Form gönderildiğinde otomatik doldurulan değerlerin yerleşmesi için kısa bir süre bekle
         setTimeout(() => {
             const latestPassword = resolveLatestPasswordForSave(null);
             const hostname = getCleanHostname(window.location.href);
 
             if (latestPassword && latestPassword.length > 0 && hostname) {
-                // Ensure email is up to date too
+                // E-posta adresinin de güncel olduğundan emin ol
                 const emailField = findEmailOrUsernameField(document);
                 const latestEmail = emailField && emailField.value ? emailField.value.trim() : sessionCredentials.email;
 
